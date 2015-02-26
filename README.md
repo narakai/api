@@ -4,6 +4,5 @@
 # code style
 > indent 2 space
 
-# api list
-try [swagger.io link](http://editor.swagger.io/#/edit), upload swagger.yaml in repo
-enjoy it.
+# API列表
+打开[swagger.io编辑器](http://editor.swagger.io/#/edit), 上传项目内的swagger.yaml即可使用
