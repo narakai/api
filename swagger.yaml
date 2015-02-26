@@ -1,0 +1,51 @@
+# Example YAML to get you started quickly.
+# Be aware that YAML has indentation based scoping.
+# Code completion support is available so start typing for available options.
+swagger: '2.0'
+
+# This is your document metadata
+info:
+  version: "0.0.1"
+  title: YoBook api list
+# domain
+host: localhost:9527
+# Describe your paths here
+paths:
+  # This is a path endpoint. Change it.
+  /wantedLists:
+    get:
+      tags:
+        - wanted list
+      summary: 查询用户的愿望单， 带有userId参数，如果用户登陆后，不带userId参数，加上token可以查询本用户的愿望单
+      parameters:
+        - name: userId
+          in: query
+          description: 所查询用户的愿望单
+          type: string
+      responses:
+        200:
+          description: 执行成功，返回所查询用户的愿望单
+          schema:
+            $ref: '#/definitions/WantedList'
+definitions:
+  WantedList:
+    properties:
+      books:
+        type: array
+        items:
+          $ref: '#/definitions/Book'
+  Book:
+    properties:
+      id:
+        type: string
+        description: 书籍唯一id
+      isbn:
+        type: string
+        description: ISBN号码
+      name:
+        type: string
+        description: 书籍名称
+      user_id:
+        type: string
+        description: 该书籍所有者
+      
