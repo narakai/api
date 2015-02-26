@@ -5,4 +5,5 @@
 > indent 2 space
 
 # api list
-try sagger.io and upload swagger.yml
+try [swagger.io link](http://editor.swagger.io/#/edit), upload swagger.yaml in repo
+enjoy it.

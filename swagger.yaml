@@ -6,7 +6,7 @@ swagger: '2.0'
 # This is your document metadata
 info:
   version: "0.0.1"
-  title: YoBook api list
+  title: YoBook API List
 # domain
 host: localhost:9527
 # Describe your paths here
@@ -16,18 +16,48 @@ paths:
     get:
       tags:
         - wanted list
-      summary: 查询用户的愿望单， 带有userId参数，如果用户登陆后，不带userId参数，加上token可以查询本用户的愿望单
+      summary: 查询用户的愿望单， 带有userId参数，如果用户登录后，不带userId参数，加上token可以查询本用户的愿望单
       parameters:
         - name: userId
           in: query
-          description: 所查询用户的愿望单
+          description: 被查询愿望单的用户id
           type: string
       responses:
         200:
-          description: 执行成功，返回所查询用户的愿望单
+          description: 执行成功，返回所查询的愿望单
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/WantedList'
+        404:
+          description: 执行失败，为找到所查询的愿望单
+          schema:
+            $ref: '#/definitions/Error'
+  /wantedLists/{wantedListId}:
+    get:
+      tags:
+        - wanted list
+      summary: 根据wanted list id指定查询愿望单
+      parameters:
+        - name: wantedListId
+          in: path
+          description: 愿望单id
+          type: string
+      responses:
+        200:
+          description: 找到愿望单
           schema:
             $ref: '#/definitions/WantedList'
+        404:
+          description: 未找到愿望单
+          schema:
+            $ref: '#/definitions/Error'
 definitions:
+  Error:
+    properties:
+      message:
+        type: string
+        description: 错误信息描述
   WantedList:
     properties:
       books:
