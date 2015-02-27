@@ -12,3 +12,7 @@
 
 # 持续集成服务
 > 采用[Travis](travis-ci.org)进行部署和测试
+
+# IDE
+## IntelliJ Idea
+> 使用idea已经支持nodejs debug，请确认勾选上preference -> javascript -> lib内的nodejs相关lib
