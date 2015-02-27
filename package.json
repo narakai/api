@@ -1,0 +1,29 @@
+{
+  "name": "api",
+  "version": "0.0.0",
+  "description": "> api service, nodejs based",
+  "main": "Gulpfile.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "gulp-install": "^0.2.0",
+    "gulp": "^3.8.11",
+    "gulp-nodemon": "^1.0.5",
+    "gulp-util": "^3.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/yobook/api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yobook/api/issues"
+  },
+  "homepage": "https://github.com/yobook/api"
+}
