@@ -10,6 +10,8 @@ info:
 # domain
 host: localhost:9527
 # Describe your paths here
+schemes:
+  - http
 paths:
   /healthcheck:
     get:
@@ -68,20 +70,16 @@ paths:
         - book
         - post
       summary: 新建图书
+      operationId: createBook
       produces:
         - application/json
-      consumes:
-        - application/json
       parameters:
-        - name: name
-          in: body
-          type: string
-        - name: sn
-          in: body
-          type: string
-        - summary:
-          in: body
-          type: string
+        - in: body
+          name: body
+          description: Created user object
+          required: true
+          schema:
+            $ref: '#/definitions/createBookRequest'
       responses:
         201:
           description: 创建成功
@@ -92,6 +90,17 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 definitions:
+  createBookRequest:
+    properties:
+      name:
+        type: string
+        description: 书籍名称
+      sn:
+        type: string
+        description: 序列号， 可以填写CN\ ISSN \ISBN等
+      summary:
+        type: string
+        descrition: 书籍简介
   Error:
     properties:
       message:
