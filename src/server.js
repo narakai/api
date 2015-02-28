@@ -26,7 +26,6 @@ var sequelize = new Sequelize(databaseConfig.database, databaseConfig.username, 
 //try to connect mysql
 sequelize.authenticate().then(function () {
   Logger.info("database connection success");
-
 // write headers
   app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -38,23 +37,17 @@ sequelize.authenticate().then(function () {
     next();
   });
 // load models
-  var models = {};
 
   var ModelLoader = require("./modelLoader");
-  _.forEach(_.map(ModelLoader.getModels(), function (modelFile) {
-    var name = /^.*\/(\w*)\.js$/.exec(modelFile)[1];
-    return {name: name, schema: sequelize.import(modelFile)}
-  }), function (model) {
-    models[model.name] = model.schema
-  });
 
+  ModelLoader.load(sequelize);
 
   var routes = require("./routes");
   var Router = require('express').Router();
 
   // reg routes
   _.forEach(routes.getRoutes(), function (routeFile) {
-    require(routeFile)(Router, Logger, models);
+    require(routeFile)(Router, Logger, sequelize.models);
   });
   app.use(Router);
 
