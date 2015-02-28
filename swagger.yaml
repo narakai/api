@@ -11,45 +11,52 @@ info:
 host: localhost:9527
 # Describe your paths here
 paths:
-  # This is a path endpoint. Change it.
+  /healthcheck:
+    get:
+      tags:
+        - system
+      summary: èŽ·å–æœåŠ¡å™¨æ—¶é—´
+      responses:
+        200:
+          description: æœåŠ¡å™¨æ­£å¸¸
   /wantedLists:
     get:
       tags:
         - wanted list
-      summary: 查询用户的愿望单， 带有userId参数，如果用户登录后，不带userId参数，加上token可以查询本用户的愿望单
+      summary: æŸ¥è¯¢ç”¨æˆ·çš„æ„¿æœ›å•ï¼Œ å¸¦æœ‰userIdå‚æ•°ï¼Œå¦‚æžœç”¨æˆ·ç™»å½•åŽï¼Œä¸å¸¦userIdå‚æ•°ï¼ŒåŠ ä¸Štokenå¯ä»¥æŸ¥è¯¢æœ¬ç”¨æˆ·çš„æ„¿æœ›å•
       parameters:
         - name: userId
           in: query
-          description: 被查询愿望单的用户id
+          description: è¢«æŸ¥è¯¢æ„¿æœ›å•çš„ç”¨æˆ·id
           type: string
       responses:
         200:
-          description: 执行成功，返回所查询的愿望单
+          description: æ‰§è¡ŒæˆåŠŸï¼Œè¿”å›žæ‰€æŸ¥è¯¢çš„æ„¿æœ›å•
           schema:
             type: array
             items:
               $ref: '#/definitions/WantedList'
         404:
-          description: 执行失败，为找到所查询的愿望单
+          description: æ‰§è¡Œå¤±è´¥ï¼Œä¸ºæ‰¾åˆ°æ‰€æŸ¥è¯¢çš„æ„¿æœ›å•
           schema:
             $ref: '#/definitions/Error'
   /wantedLists/{wantedListId}:
     get:
       tags:
         - wanted list
-      summary: 根据wanted list id指定查询愿望单
+      summary: æ ¹æ®wanted list idæŒ‡å®šæŸ¥è¯¢æ„¿æœ›å•
       parameters:
         - name: wantedListId
           in: path
-          description: 愿望单id
+          description: æ„¿æœ›å•id
           type: string
       responses:
         200:
-          description: 找到愿望单
+          description: æ‰¾åˆ°æ„¿æœ›å•
           schema:
             $ref: '#/definitions/WantedList'
         404:
-          description: 未找到愿望单
+          description: æœªæ‰¾åˆ°æ„¿æœ›å•
           schema:
             $ref: '#/definitions/Error'
 definitions:
@@ -57,9 +64,12 @@ definitions:
     properties:
       message:
         type: string
-        description: 错误信息描述
+        description: é”™è¯¯ä¿¡æ¯æè¿°
   WantedList:
     properties:
+      id: 
+        type: integer
+        description: ä¸»é”®id
       books:
         type: array
         items:
@@ -68,14 +78,17 @@ definitions:
     properties:
       id:
         type: string
-        description: 书籍唯一id
-      isbn:
+        description: ä¹¦ç±å”¯ä¸€id
+      sn:
         type: string
-        description: ISBN号码
+        description: åºåˆ—å·ï¼Œ å¯ä»¥å¡«å†™CN\ ISSN \ISBNç­‰
       name:
         type: string
-        description: 书籍名称
-      user_id:
+        description: ä¹¦ç±åç§°
+      summary:
         type: string
-        description: 该书籍所有者
+        descrition: ä¹¦ç±ç®€ä»‹
+      userId:
+        type: string
+        description: è¯¥ä¹¦ç±æ‰€æœ‰è€…
       
