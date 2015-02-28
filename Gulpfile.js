@@ -7,6 +7,7 @@ var args = require("yargs").argv;
 var _ = require("lodash-node");
 
 var sequelizeBin = 'node_modules/.bin/sequelize';
+var databaseConfig = 'config/database.json';
 var src = __dirname + "/src";
 
 var cloneArgs = function () {
@@ -40,20 +41,19 @@ gulp.task('dev', ['install'], function () {
 });
 
 gulp.task('db:migrate', shell.task([
-  sequelizeBin + " db:migrate" + cloneArgs()
+  sequelizeBin + " db:migrate --config " + databaseConfig + " " + cloneArgs()
 ], {
   cwd: src
 }));
 
 gulp.task('db:create', shell.task([
-  sequelizeBin + " migration:create " + cloneArgs()
+  sequelizeBin + " migration:create --config " + databaseConfig + " " + cloneArgs()
 ], {
   cwd: src
 }));
 
-
 gulp.task('db:undo', shell.task([
-  sequelizeBin + " db:migrate:undo " + cloneArgs()
+  sequelizeBin + " db:migrate:undo --config " + databaseConfig + " " + cloneArgs()
 ], {
   cwd: src
 }));

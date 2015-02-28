@@ -13,13 +13,13 @@ var server = http.createServer(app);
 
 // environment def
 var env = process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
-var config = require("./config/config")[env];
+var databaseConfig = require("./config/database")[env];
 
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize(config.database, config.username, '', {
-  host: config.host,
-  dialect: config.dialect,
-  pool: config.pool,
+var sequelize = new Sequelize(databaseConfig.database, databaseConfig.username, '', {
+  host: databaseConfig.host,
+  dialect: databaseConfig.dialect,
+  pool: databaseConfig.pool,
   logging: Logger.info
 });
 
