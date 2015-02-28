@@ -17,4 +17,4 @@ after_success:
   - echo "done"
 
 notifications:
-  slack: ngacn:g7UKlznzOydd9RD1fDwYjXLi
+  slack: ngacn:6HY5F4fqhrSPeGZi77QxTFVj
