@@ -1,6 +1,6 @@
 module.exports = function (seq, DataTypes) {
-  return seq.define("user", {
-    id: DataTypes.INTEGER,
+  return seq.define("Book", {
+    id: { type: DataTypes.INTEGER, autoIncrement: true },
     name: DataTypes.STRING(256),
     sn: DataTypes.STRING(256),
     summary: DataTypes.TEXT,
