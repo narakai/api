@@ -3,10 +3,20 @@ var install = require("gulp-install");
 var nodemon = require("gulp-nodemon");
 var util = require("gulp-util");
 var shell = require("gulp-shell");
+var args = require("yargs").argv;
+var _ = require("lodash-node");
 
 var sequelizeBin = 'node_modules/.bin/sequelize';
 var src = __dirname + "/src";
 
+var cloneArgs = function () {
+  var x = _.clone(args);
+  delete x["_"];
+  delete x["$0"];
+  return _.map(x, function (v, k) {
+    return " --" + k + " " + v;
+  }).join(" ");
+};
 
 gulp.task('install', function () {
   return gulp.src(__dirname + '/src/package.json')
@@ -29,20 +39,14 @@ gulp.task('dev', ['install'], function () {
     });
 });
 
-gulp.task('migrate', ['install'], function () {
-  var cmd = sequelizeBin + " db:migrate";
-  return shell.task([
-    cmd
-  ], {
-    cwd: src
-  });
-});
+gulp.task('migrate', shell.task([
+  sequelizeBin + " db:migrate" + cloneArgs()
+], {
+  cwd: src
+}));
 
-gulp.task('create:schema', function () {
-  var cmd = sequelizeBin + " migration:create " + gulp.env.name ? gulp.env.name : "bot";
-  return shell.task([
-    cmd
-  ], {
-    cwd: src
-  });
-});
+gulp.task('create', shell.task([
+  sequelizeBin + " migration:create " + cloneArgs()
+], {
+  cwd: src
+}));
