@@ -3,7 +3,7 @@
 module.exports = {
   up: function (migration, DataTypes, done) {
     // add altering commands here, calling 'done' when finished
-    migration.createTable('book', {
+    migration.createTable('books', {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -16,11 +16,17 @@ module.exports = {
       sn: {
         type: DataTypes.STRING(256)
       },
-      summary:{
+      summary: {
         type: DataTypes.TEXT
       },
-      userId:{
+      userId: {
         type: DataTypes.INTEGER
+      },
+      createdAt: {
+        type: DataTypes.DATE
+      },
+      updatedAt: {
+        type: DataTypes.DATE
       }
     });
     done();
@@ -28,7 +34,7 @@ module.exports = {
 
   down: function (migration, DataTypes, done) {
     // add reverting commands here, calling 'done' when finished
-    migration.dropTable('book');
+    migration.dropTable('books');
     done();
   }
 };
