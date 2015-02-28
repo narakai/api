@@ -1,0 +1,5 @@
+{
+  "development" : {
+    "api":"http://localhost:9527"
+  }
+}
