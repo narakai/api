@@ -4,20 +4,38 @@
     "password": null,
     "database": "yobook",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "port": 3306,
+    "pool": {
+      "max": 10,
+      "min": 4,
+      "idle": 10000
+    }
   },
   "test": {
     "username": "root",
     "password": null,
-    "database": "database_test",
+    "database": "yobook",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "port": 3306,
+    "pool": {
+      "max": 10,
+      "min": 4,
+      "idle": 10000
+    }
   },
   "production": {
     "username": "root",
     "password": null,
-    "database": "database_production",
+    "database": "yobook",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "port": 3306,
+    "pool": {
+      "max": 10,
+      "min": 4,
+      "idle": 10000
+    }
   }
 }

@@ -31,8 +31,6 @@ npm install -g gulp
 将会回滚上一个操作
 
 
-
-
 # IDE
 ## IntelliJ Idea
 > 使用idea已经支持nodejs debug，请确认勾选上preference -> javascript -> lib内的nodejs相关lib

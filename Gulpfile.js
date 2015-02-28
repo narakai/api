@@ -27,7 +27,7 @@ gulp.task('dev', ['install'], function () {
   var config = {
     script: __dirname + "/src/server.js",
     ext: 'js json',
-    env: {'NODE_ENV': 'local'}
+    env: {'NODE_ENV': 'development'}
   };
 
   return nodemon(config)
