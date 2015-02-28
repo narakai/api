@@ -39,14 +39,22 @@ gulp.task('dev', ['install'], function () {
     });
 });
 
-gulp.task('migrate', shell.task([
+gulp.task('db:migrate', shell.task([
   sequelizeBin + " db:migrate" + cloneArgs()
 ], {
   cwd: src
 }));
 
-gulp.task('create', shell.task([
+gulp.task('db:create', shell.task([
   sequelizeBin + " migration:create " + cloneArgs()
 ], {
   cwd: src
 }));
+
+
+gulp.task('db:undo', shell.task([
+  sequelizeBin + " db:migrate:undo " + cloneArgs()
+], {
+  cwd: src
+}));
+

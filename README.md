@@ -22,10 +22,13 @@ npm install -g gulp
 ## tasks
 ### install
 将会对src内的package.json进行安装
-### migrate
+### db:migrate
 将会对src/migrations内的脚本进行迁移
-### create
+### db:create
 将会产生一个src/migrations内的迁移脚本
+这个脚本包含up和down脚本，在编写脚本的时候请明确正向迁移up和回滚down方法
+### db:undo
+将会回滚上一个操作
 
 
 
