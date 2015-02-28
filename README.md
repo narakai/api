@@ -8,7 +8,7 @@
 > 打开[swagger.io编辑器](http://editor.swagger.io/#/edit), 上传项目内的swagger.yaml即可使用
 
 # 数据库迁移
-> 采用[flywayDB](http://flywaydb.org/)进行数据库迁移。
+> 采用[sequelizejs自带migration](http://docs.sequelizejs.com/en/latest/docs/migrations//)进行数据库迁移， 并且已经加入到gulp豪华套餐中
 
 # 持续集成服务
 > 采用[Travis](travis-ci.org)进行部署和测试
@@ -22,6 +22,11 @@ npm install -g gulp
 ## tasks
 ### install
 将会对src内的package.json进行安装
+### migrate
+将会对src/migrations内的脚本进行迁移
+### create
+将会产生一个src/migrations内的迁移脚本
+
 
 
 
