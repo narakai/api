@@ -14,7 +14,7 @@ after_failure:
   - cat ~/.forever/server.log
 
 after_success:
-  - echo "done"
+  - echo "done "
 
 notifications:
   slack: ngacn:6HY5F4fqhrSPeGZi77QxTFVj
