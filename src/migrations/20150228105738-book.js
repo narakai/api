@@ -3,7 +3,7 @@
 module.exports = {
   up: function (migration, DataTypes, done) {
     // add altering commands here, calling 'done' when finished
-    migration.createTable('books', {
+    migration.createTable('Books', {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
