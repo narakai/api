@@ -11,7 +11,7 @@ before_script:
   - npm install
   - export NODE_ENV=ci
   - gulp install
-  - gulp db:migrate --env test
+  - gulp db:migrate
   - forever start src/server.js
   - forever list
   - sleep 5
