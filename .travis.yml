@@ -12,8 +12,8 @@ before_script:
   - export NODE_ENV=test
   - gulp install
   - gulp db:migrate --env test
-  - forever list
   - forever start src/server.js
+  - forever list
   - forever logs 0
 
 script:
