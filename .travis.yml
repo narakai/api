@@ -5,13 +5,19 @@ services:
   - mysql
 
 before_script:
-  - sleep 1
+  - mysql -uroot < ./scripts/create_database.sql
+  - npm install -g gulp
+  - npm install
+  - export NODE_ENV=test
+  - gulp install
+  - gulp db:migrate --env test
+  - cd src && node server.js
 
 script:
-  - npm test
+  - gulp test
 
 after_failure:
-  - cat ~/.forever/server.log
+  - echo "build failed"
 
 after_success:
   - echo "done "
