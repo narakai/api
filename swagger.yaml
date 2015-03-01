@@ -85,6 +85,12 @@ paths:
           description: 创建成功
           schema:
             $ref: '#/definitions/Book'
+        400:
+          description: 失败，有错误
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/BadRequest'
         403:
           description: 用户没有权限，没有登陆
           schema:
@@ -101,6 +107,17 @@ definitions:
       summary:
         type: string
         descrition: 书籍简介
+  BadRequest:
+    properties:
+      param:
+        type: string
+        description: 错误参数
+      msg:
+        type: string
+        description: 错误信息
+      value: 
+        type: string
+        description: 提供的值
   Error:
     properties:
       message:

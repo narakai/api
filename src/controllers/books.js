@@ -4,7 +4,7 @@ module.exports = function (router, Logger, models) {
   router.route("/books")
     .post(function (req, res) {
       // check request
-      req.checkBody('name', "field:name invalid").notEmpty();
+      req.checkBody('name', "required").notEmpty();
       badRequestFilter(req, res, function () {
         Book.create({
           name: req.body.name,
