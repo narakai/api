@@ -7,11 +7,12 @@ services:
 before_script:
   - mysql -uroot < ./scripts/create_database.sql
   - npm install -g gulp
+  - npm install pm2 -g
   - npm install
   - export NODE_ENV=test
   - gulp install
   - gulp db:migrate --env test
-  - cd src && node server.js
+  - pm2 start src/server.js -i max
 
 script:
   - gulp test
