@@ -21,10 +21,11 @@ var cloneArgs = function () {
   }).join(" ");
 };
 
-gulp.task('install', function () {
-  return gulp.src(__dirname + '/src/package.json')
-    .pipe(install());
-});
+gulp.task('install', shell.task([
+  'npm install'
+], {
+  cwd: src
+}));
 
 gulp.task('dev', ['install'], function () {
   var config = {
