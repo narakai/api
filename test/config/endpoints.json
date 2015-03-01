@@ -1,5 +1,5 @@
 {
   "development" : {
-    "api":"http://localhost:9527"
+    "api":"http://127.0.0.1:9527"
   }
 }
