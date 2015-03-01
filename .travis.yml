@@ -13,17 +13,17 @@ before_script:
   - gulp install
   - gulp db:migrate --env test
   - forever list
-  - forever start src/server.js -l ./server.log
-  - cat ./server.log
+  - forever start src/server.js
+  - forever logs 0
 
 script:
   - gulp test
 
 after_failure:
-  - cat ./server.log
+  - forever logs 0
 
 after_success:
-  - cat ./server.log
+  - forever logs 0
   - echo "should deploy service to UAT env"
 notifications:
   slack: ngacn:6HY5F4fqhrSPeGZi77QxTFVj
