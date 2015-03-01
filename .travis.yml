@@ -12,14 +12,14 @@ before_script:
   - export NODE_ENV=test
   - gulp install
   - gulp db:migrate --env test
-  - pm2 start src/server.js
-  - pm2 logs
+  - pm2 start src/server.js -l ~/server.log
+  - cat ~/server-0.log
 
 script:
   - gulp test
 
 after_failure:
-  - pm2 logs
+  - cat ~/server-0.log
 
 after_success:
   - echo "done "
