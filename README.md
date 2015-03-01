@@ -55,9 +55,11 @@ mysql -uroot < ./scripts/create_database.sql
 gulp db:migrate
 ```
 ## 启动开发环境
+启动开发环境会自动watch ./src下所有的js\json文件，任何文件更新都触发重启
 ```
 gulp dev
 ```
+如果需要手动重启，直接在启动后的命令行stdin内输入rs
 ## 执行自动化测试
 ```
 gulp test
