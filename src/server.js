@@ -14,6 +14,7 @@ var server = http.createServer(app);
 // environment def
 var env = process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
 var databaseConfig = require("./config/database")[env];
+var serverConfig = require("./config/server")[env];
 
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize(databaseConfig.database, databaseConfig.username, '', {
@@ -52,7 +53,7 @@ sequelize.authenticate().then(function () {
   app.use(Router);
 
 
-  server.listen(9527, function () {
+  server.listen(serverConfig.port, function () {
     Logger.info("boom on " + 9527);
   });
 

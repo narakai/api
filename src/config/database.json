@@ -12,6 +12,19 @@
       "idle": 10000
     }
   },
+  "ci": {
+    "username": "root",
+    "password": null,
+    "database": "yobook",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "port": 3306,
+    "pool": {
+      "max": 10,
+      "min": 4,
+      "idle": 10000
+    }
+  },
   "test": {
     "username": "root",
     "password": null,
