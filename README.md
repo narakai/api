@@ -34,3 +34,35 @@ npm install -g gulp
 # IDE
 ## IntelliJ Idea
 > 使用idea已经支持nodejs debug，请确认勾选上preference -> javascript -> lib内的nodejs相关lib
+
+# 开发环境
+开发环境使用gulp进行安装，在建立自己的开发环境时，请安装以下：
+* node.js
+* mysql
+
+## clone代码到本地，安装gulp， 如果需要，请加上sudo
+```
+npm install -g gulp
+```
+## 依赖安装
+```
+npm install
+gulp install
+```
+## 初始化数据库
+```
+mysql -uroot < ./scripts/create_database.sql
+gulp db:migrate
+```
+## 启动开发环境
+```
+gulp dev
+```
+## 执行自动化测试
+```
+gulp test
+```
+## 本地访问测试
+```
+curl http://127.0.0.1:9527/healthcheck
+```
