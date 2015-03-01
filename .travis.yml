@@ -18,7 +18,7 @@ script:
   - gulp test
 
 after_failure:
-  - echo "build failed"
+  - pm2 logs
 
 after_success:
   - echo "done "

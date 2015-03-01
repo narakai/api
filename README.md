@@ -1,4 +1,4 @@
-# api
+# api [![Build Status](https://travis-ci.org/yobook/api.svg?branch=master)](https://travis-ci.org/yobook/api)
 > api service, nodejs based
 
 # code style
