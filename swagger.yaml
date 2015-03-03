@@ -1,152 +1,196 @@
-# Example YAML to get you started quickly.
-# Be aware that YAML has indentation based scoping.
-# Code completion support is available so start typing for available options.
-swagger: '2.0'
-
-# This is your document metadata
-info:
-  version: "0.0.1"
-  title: YoBook API List
-# domain
-host: localhost:9527
-# Describe your paths here
-schemes:
-  - http
-paths:
-  /healthcheck:
-    get:
-      tags:
-        - system
-        - get
-      summary: 获取服务器时间
-      responses:
-        200:
-          description: 服务器正常
-  /wantedLists:
-    get:
-      tags:
-        - wanted list
-        - get
-      summary: 查询用户的愿望单， 带有userId参数，如果用户登录后，不带userId参数，加上token可以查询本用户的愿望单
-      parameters:
-        - name: userId
-          in: query
-          description: 被查询愿望单的用户id
-          type: string
-      responses:
-        200:
-          description: 执行成功，返回所查询的愿望单
-          schema:
-            type: array
-            items:
+  # Example YAML to get you started quickly.
+  # Be aware that YAML has indentation based scoping.
+  # Code completion support is available so start typing for available options.
+  swagger: '2.0'
+  
+  # This is your document metadata
+  info:
+    version: "0.0.1"
+    title: YoBook API List
+  # domain
+  host: localhost:9527
+  # Describe your paths here
+  schemes:
+    - http
+  paths:
+    /healthcheck:
+      get:
+        tags:
+          - system
+          - get
+        summary: 获取服务器时间
+        responses:
+          200:
+            description: 服务器正常
+    /wantedLists:
+      get:
+        tags:
+          - wanted list
+          - get
+        summary: 查询用户的愿望单， 带有userId参数，如果用户登录后，不带userId参数，加上token可以查询本用户的愿望单
+        parameters:
+          - name: userId
+            in: query
+            description: 被查询愿望单的用户id
+            type: string
+        responses:
+          200:
+            description: 执行成功，返回所查询的愿望单
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/WantedList'
+          404:
+            description: 执行失败，为找到所查询的愿望单
+            schema:
+              $ref: '#/definitions/Error'
+    /wantedLists/{wantedListId}:
+      get:
+        tags:
+          - wanted list
+          - get
+        summary: 根据wanted list id指定查询愿望单
+        parameters:
+          - name: wantedListId
+            in: path
+            description: 愿望单id
+            type: string
+        responses:
+          200:
+            description: 找到愿望单
+            schema:
               $ref: '#/definitions/WantedList'
-        404:
-          description: 执行失败，为找到所查询的愿望单
-          schema:
-            $ref: '#/definitions/Error'
-  /wantedLists/{wantedListId}:
-    get:
-      tags:
-        - wanted list
-        - get
-      summary: 根据wanted list id指定查询愿望单
-      parameters:
-        - name: wantedListId
-          in: path
-          description: 愿望单id
+          404:
+            description: 未找到愿望单
+            schema:
+              $ref: '#/definitions/Error'
+    /books:
+      post:
+        tags:
+          - book
+          - post
+        summary: 新建图书
+        produces:
+          - application/json
+        parameters:
+          - in: body
+            name: body
+            description: Created user object
+            required: true
+            schema:
+              $ref: '#/definitions/createBookRequest'
+        responses:
+          201:
+            description: 创建成功
+            schema:
+              $ref: '#/definitions/Book'
+          400:
+            description: 失败，携带参数有错误
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/BadRequest'
+          403:
+            description: 用户没有权限，没有登陆
+            schema:
+              $ref: '#/definitions/Error'
+      get:
+        tags:
+          - book
+          - get
+        summary: 根据条件查询图书
+        produces:
+          - application/json
+        parameters:
+        - name: name
+          in: query
+          description: 希望查询书籍的名称
           type: string
-      responses:
-        200:
-          description: 找到愿望单
-          schema:
-            $ref: '#/definitions/WantedList'
-        404:
-          description: 未找到愿望单
-          schema:
-            $ref: '#/definitions/Error'
-  /books:
-    post:
-      tags:
-        - book
-        - post
-      summary: 新建图书
-      operationId: createBook
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: body
-          description: Created user object
-          required: true
-          schema:
-            $ref: '#/definitions/createBookRequest'
-      responses:
-        201:
-          description: 创建成功
-          schema:
+        responses:
+          200:
+            description: 找到图书了
+            schema: 
+              type: array
+              items:
+                $ref: '#/definitions/Book'
+          404:
+            description: 没有能根据查询条件找到相关书籍
+            schema: 
+              $ref: '#/definitions/Error'
+    /books/{book_id}:
+      get:
+        tags:
+          - book
+          - get
+        summary: 获取指定的书籍
+        produces:
+          - application/json
+        parameters:
+          - name: _id
+            in: path
+            description: 书籍的唯一id 
+            type: string
+        responses:
+          200:
+            description: 找到指定id的书籍
+            schema:
+              $ref: '#/definitions/Book'
+          404:
+            description: 未找到指定id的书籍
+            schema: 
+              $ref: '#/definitions/Error'
+  definitions:
+    createBookRequest:
+      properties:
+        name:
+          type: string
+          description: 书籍名称
+        sn:
+          type: string
+          description: 序列号， 可以填写CN\ ISSN \ISBN等
+        summary:
+          type: string
+          descrition: 书籍简介
+    BadRequest:
+      properties:
+        param:
+          type: string
+          description: 错误参数
+        msg:
+          type: string
+          description: 错误信息
+        value: 
+          type: string
+          description: 提供的值
+    Error:
+      properties:
+        message:
+          type: string
+          description: 错误信息描述
+    WantedList:
+      properties:
+        id: 
+          type: integer
+          description: 主键id
+        books:
+          type: array
+          items:
             $ref: '#/definitions/Book'
-        400:
-          description: 失败，有错误
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/BadRequest'
-        403:
-          description: 用户没有权限，没有登陆
-          schema:
-            $ref: '#/definitions/Error'
-definitions:
-  createBookRequest:
-    properties:
-      name:
-        type: string
-        description: 书籍名称
-      sn:
-        type: string
-        description: 序列号， 可以填写CN\ ISSN \ISBN等
-      summary:
-        type: string
-        descrition: 书籍简介
-  BadRequest:
-    properties:
-      param:
-        type: string
-        description: 错误参数
-      msg:
-        type: string
-        description: 错误信息
-      value: 
-        type: string
-        description: 提供的值
-  Error:
-    properties:
-      message:
-        type: string
-        description: 错误信息描述
-  WantedList:
-    properties:
-      id: 
-        type: integer
-        description: 主键id
-      books:
-        type: array
-        items:
-          $ref: '#/definitions/Book'
-  Book:
-    properties:
-      id:
-        type: string
-        description: 书籍唯一id
-      sn:
-        type: string
-        description: 序列号， 可以填写CN\ ISSN \ISBN等
-      name:
-        type: string
-        description: 书籍名称
-      summary:
-        type: string
-        descrition: 书籍简介
-      userId:
-        type: string
-        description: 该书籍所有者
-      
+    Book:
+      properties:
+        id:
+          type: string
+          description: 书籍唯一id
+        sn:
+          type: string
+          description: 序列号， 可以填写CN\ ISSN \ISBN等
+        name:
+          type: string
+          description: 书籍名称
+        summary:
+          type: string
+          descrition: 书籍简介
+        userId:
+          type: string
+          description: 该书籍所有者
+        
