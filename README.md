@@ -14,8 +14,8 @@
 # API列表
 > 打开 [swagger.io编辑器](http://editor.swagger.io/#/edit), 上传项目内的 swagger.yaml 即可使用
 
-# 数据库迁移
-> 采用 [sequelizejs自带migration](http://docs.sequelizejs.com/en/latest/docs/migrations//) 进行数据库迁移， 并且已经加入到 gulp 豪华套餐中
+# 数据库
+> mysql已经被我干掉，开发请使用mongoDB(2.6.*)
 
 # 持续集成服务
 > 采用 [Travis](http://travis-ci.org) 进行部署和测试
