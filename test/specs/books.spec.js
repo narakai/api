@@ -11,7 +11,7 @@ describe('[Books API] ', function () {
       };
       request.post(config.api + "/books", {json: postData}, function (error, response, body) {
         expect(response.statusCode).toBe(201);
-        expect(body.id).toBeDefined();
+        expect(body._id).toBeDefined();
         done();
       });
      });
