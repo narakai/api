@@ -117,7 +117,7 @@
             description: 没有能根据查询条件找到相关书籍
             schema: 
               $ref: '#/definitions/Error'
-    /books/{book_id}:
+    /books/{_id}:
       get:
         tags:
           - book
