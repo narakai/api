@@ -22,8 +22,9 @@ after_failure:
   - forever logs 0
 
 after_success:
-  - wget http://ci.ydspeed.com/job/Alone/build?token=yooooooooooooboooooooook&cause=travis
   - forever logs 0
   - echo "should deploy service to UAT env"
+  - curl http://ci.ydspeed.com/job/Alone/build?token=yooooooooooooboooooooook&cause=travis+build+success
+  - sleep 5
 notifications:
   slack: ngacn:6HY5F4fqhrSPeGZi77QxTFVj
