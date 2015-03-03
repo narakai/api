@@ -26,6 +26,17 @@ describe('[Books API] ', function () {
         expect(body[0].msg).toBeDefined();
         done();
       });
-    })
+    });
+    it('should return 400 and contained error message when given body without name', function (done) {
+      var postData = {
+        sn: "ISBN-321312-3213-123",
+        summary: ""
+      };
+      request.post(config.api + "/books", {json: postData}, function (error, response, body) {
+        expect(response.statusCode).toBe(400);
+        expect(body[0].msg).toBeDefined();
+        done();
+      });
+    });
   });
 });
