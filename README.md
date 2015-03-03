@@ -4,6 +4,13 @@
 # code style
 > indent 2 space
 
+# 如何贡献代码
+> 如果你有write权限，可以选择：1. 建立feature branch方式，本地开发，push后提pull request； 2. 在master主干开发。
+两者都可以，但请记得，选择2方式的时候，git pull --rebase后一定要解决冲突，把提交路线搞坏的，杀无赦。
+如果你没有write权限，请fork后提pull request
+请注意：
+不管以何种方式贡献代码，只要涉及API增加、修改、删除，必须带上API测试， 测试代码在test/specs中，使用的是jasmine，请照葫芦画瓢
+
 # API列表
 > 打开 [swagger.io编辑器](http://editor.swagger.io/#/edit), 上传项目内的 swagger.yaml 即可使用
 
