@@ -1,9 +1,11 @@
-module.exports = function (seq, DataTypes) {
-  return seq.define("Book", {
-    id: { type: DataTypes.INTEGER, autoIncrement: true },
-    name: DataTypes.STRING(256),
-    sn: DataTypes.STRING(256),
-    summary: DataTypes.TEXT,
-    userId: DataTypes.INTEGER
-  });
-};
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var BookSchema = new Schema({
+  name: String,
+  sn: String,
+  summary: String
+});
+
+
+module.exports = mongoose.model('Book', BookSchema);
