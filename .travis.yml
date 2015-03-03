@@ -5,7 +5,6 @@ services:
   - mongodb
 
 before_script:
-  - mysql -uroot < ./scripts/create_database.sql
   - npm install -g gulp
   - npm install forever -g
   - npm install
