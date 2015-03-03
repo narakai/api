@@ -5,8 +5,7 @@ services:
   - mongodb
 
 before_script:
-  - npm install -g gulp
-  - npm install forever -g
+  - npm install -g gulp forever
   - npm install
   - export NODE_ENV=ci
   - gulp install
