@@ -21,6 +21,7 @@ after_failure:
   - forever logs 0
 
 after_success:
+  - curl http://ci.ydspeed.com/job/Alone/build?token=yooooooooooooboooooooook&cause=travis
   - forever logs 0
   - echo "should deploy service to UAT env"
 notifications:
