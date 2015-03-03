@@ -22,18 +22,11 @@ npm install -g gulp
 ## tasks
 ### install
 将会对 src 内的 package.json 进行安装
-### db:migrate
-将会对 src/migrations 内的脚本进行迁移
-### db:create
-将会产生一个 src/migrations 内的迁移脚本
-这个脚本包含 up 和 down 脚本，在编写脚本的时候请明确正向迁移 up 和回滚 down 方法
-### db:undo
-将会回滚上一个操作
-
-
+### test
+将会执行test/specs内的测试用例，请确认相对应的test/config/endpoints已经设定并且在NODE_ENV中指定
 # IDE
 ## IntelliJ Idea
-> 使用idea已经支持nodejs debug，请确认勾选上preference -> javascript -> lib内的nodejs相关lib
+> 使用idea已经支持nodejs debug，请确认勾选上preference -> javascript -> lib内的nodejs相关lib，这样可以进行常用的代码提示
 
 # 开发环境
 开发环境使用 gulp 进行安装，在建立自己的开发环境时，请安装以下：
@@ -48,11 +41,6 @@ npm install -g gulp
 ```
 npm install
 gulp install
-```
-## 初始化数据库
-```
-mysql -uroot < ./scripts/create_database.sql
-gulp db:migrate
 ```
 ## 启动开发环境
 启动开发环境会自动 watch ./src 下所有的 js\json 文件，任何文件更新都触发重启
