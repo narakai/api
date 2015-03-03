@@ -1,54 +1,46 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "yobook",
-    "host": "127.0.0.1",
-    "dialect": "mysql",
-    "port": 3306,
-    "pool": {
-      "max": 10,
-      "min": 4,
-      "idle": 10000
+    "uri" : "mongodb://localhost:27017",
+    "options": {
+      "db": {
+        "native_parser": true
+      },
+      "server": {
+        "poolSize": 2
+      }
     }
   },
   "ci": {
-    "username": "root",
-    "password": null,
-    "database": "yobook",
-    "host": "127.0.0.1",
-    "dialect": "mysql",
-    "port": 3306,
-    "pool": {
-      "max": 10,
-      "min": 4,
-      "idle": 10000
+    "uri" : "mongodb://localhost:27017",
+    "options": {
+      "db": {
+        "native_parser": true
+      },
+      "server": {
+        "poolSize": 2
+      }
     }
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "yobook",
-    "host": "127.0.0.1",
-    "dialect": "mysql",
-    "port": 3306,
-    "pool": {
-      "max": 10,
-      "min": 4,
-      "idle": 10000
+    "uri" : "mongodb://localhost:27017",
+    "options": {
+      "db": {
+        "native_parser": true
+      },
+      "server": {
+        "poolSize": 2
+      }
     }
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "yobook",
-    "host": "127.0.0.1",
-    "dialect": "mysql",
-    "port": 3306,
-    "pool": {
-      "max": 10,
-      "min": 4,
-      "idle": 10000
+    "uri" : "mongodb://localhost:27017",
+    "options": {
+      "db": {
+        "native_parser": true
+      },
+      "server": {
+        "poolSize": 2
+      }
     }
   }
 }

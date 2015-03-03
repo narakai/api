@@ -17,7 +17,7 @@ var databaseConfig = require("./config/database")[env];
 var serverConfig = require("./config/server")[env];
 
 var MongoOSE = require("mongoose");
-MongoOSE.connect("mongodb://localhost:27017");
+MongoOSE.connect(databaseConfig.uri, databaseConfig.options || {});
 
 
 // write headers

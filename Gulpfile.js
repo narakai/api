@@ -3,23 +3,10 @@ var install = require("gulp-install");
 var nodemon = require("gulp-nodemon");
 var util = require("gulp-util");
 var shell = require("gulp-shell");
-var args = require("yargs").argv;
 var _ = require("lodash-node");
 var jasmine = require('gulp-jasmine');
 var reporters = require('jasmine-reporters');
-
-var sequelizeBin = 'node_modules/.bin/sequelize';
-var databaseConfig = 'config/database.json';
 var src = __dirname + "/src";
-
-var cloneArgs = function () {
-  var x = _.clone(args);
-  delete x["_"];
-  delete x["$0"];
-  return _.map(x, function (v, k) {
-    return " --" + k + " " + v;
-  }).join(" ");
-};
 
 gulp.task('install', shell.task([
   'npm install'
@@ -42,24 +29,6 @@ gulp.task('dev', ['install'], function () {
       util.log(util.colors.magenta('Restart Service'));
     });
 });
-
-gulp.task('db:migrate', shell.task([
-  sequelizeBin + " db:migrate --config " + databaseConfig + cloneArgs()
-], {
-  cwd: src
-}));
-
-gulp.task('db:create', shell.task([
-  sequelizeBin + " migration:create --config " + databaseConfig + cloneArgs()
-], {
-  cwd: src
-}));
-
-gulp.task('db:undo', shell.task([
-  sequelizeBin + " db:migrate:undo --config " + databaseConfig + cloneArgs()
-], {
-  cwd: src
-}));
 
 gulp.task('test', function () {
   return gulp.src(__dirname + "/test/specs/**.spec.js")
