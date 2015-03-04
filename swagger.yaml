@@ -41,7 +41,7 @@
               items:
                 $ref: '#/definitions/WantedList'
           404:
-            description: 执行失败，为找到所查询的愿望单
+            description: 执行失败，未找到所查询的愿望单
             schema:
               $ref: '#/definitions/Error'
     /wantedLists/{wantedListId}:
