@@ -38,7 +38,7 @@ npm install -g gulp
 # 开发环境
 开发环境使用 gulp 进行安装，在建立自己的开发环境时，请安装以下：
 * node.js
-* mysql
+* mongodb
 
 ## clone 代码到本地，安装 gulp， 如果需要，请加上 sudo
 ```
