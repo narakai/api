@@ -19,5 +19,8 @@ module.exports = function (router, Logger) {
           }
         });
       });
+    })
+    .get(function (req, res) {
+
     });
 };
