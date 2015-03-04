@@ -4,10 +4,9 @@ var config = require("../config/config");
 describe('[HealthCheck API] ', function () {
   describe('get', function () {
     it('should return server\'s time when request', function (done) {
-      request.get(config.api + "/healthcheck", function (error, response, body) {
-        var bodyObject = JSON.parse(body);
+      request.get({url: config.api + "/healthcheck", json: true}, function (error, response, body) {
         expect(response.statusCode).toBe(200);
-        expect(bodyObject.date).toBeDefined();
+        expect(body.date).toBeDefined();
         done();
       });
     });

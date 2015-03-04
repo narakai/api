@@ -1,6 +1,6 @@
 {
   "development": {
-    "uri" : "mongodb://localhost:27017",
+    "uri" : "mongodb://localhost:27017/yobook",
     "options": {
       "db": {
         "native_parser": true
@@ -11,7 +11,7 @@
     }
   },
   "ci": {
-    "uri" : "mongodb://localhost:27017",
+    "uri" : "mongodb://localhost:27017/yobook",
     "options": {
       "db": {
         "native_parser": true
@@ -22,7 +22,7 @@
     }
   },
   "test": {
-    "uri" : "mongodb://localhost:27017",
+    "uri" : "mongodb://localhost:27017/yobook",
     "options": {
       "db": {
         "native_parser": true
@@ -33,7 +33,7 @@
     }
   },
   "production": {
-    "uri" : "mongodb://localhost:27017",
+    "uri" : "mongodb://localhost:27017/yobook",
     "options": {
       "db": {
         "native_parser": true
