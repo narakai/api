@@ -7,6 +7,7 @@ var _ = require("lodash-node");
 var jasmine = require('gulp-jasmine');
 var reporters = require('jasmine-reporters');
 var src = __dirname + "/src";
+var migrator = require('./migrator');
 
 gulp.task('install', shell.task([
   'npm install'
@@ -30,9 +31,18 @@ gulp.task('dev', ['install'], function () {
     });
 });
 
-gulp.task('test', function () {
+gulp.task('test:run',['migrate:up'], function () {
   return gulp.src(__dirname + "/test/specs/**.spec.js")
     .pipe(jasmine({
       reporter: new reporters.TerminalReporter()
     }));
+});
+
+
+gulp.task('migrate:up', function () {
+  return migrator.up();
+});
+
+gulp.task('test',['test:run'], function () {
+  return migrator.down();
 });
