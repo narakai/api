@@ -13,9 +13,7 @@ var databaseConnection = function (cb) {
 module.exports.up = function () {
   databaseConnection(function (db) {
     var book = db.collection('books');
-    book.insert({name:"apiTESTBoOk", sn:"isbn-123-234-24",summary:"test summary"}, function (error, result) {
-    });
-
+    book.insert({name:"apiTESTBoOk", sn:"isbn-123-234-24",summary:"test summary"}, function (error, result) {});
     db.close();
   });
 };
@@ -23,8 +21,7 @@ module.exports.up = function () {
 module.exports.down = function () {
   databaseConnection(function (db) {
     var book = db.collection('books');
-    book.remove({}, function (error, result) {
-    });
+    book.remove({}, function (error, result) {});
     db.close();
   });
 };
