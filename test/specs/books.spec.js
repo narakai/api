@@ -65,4 +65,23 @@ describe('[Books API] ', function () {
       });
     });
   });
+
+  describe('manage book resource', function () {
+    it("should return found book when given a book id", function (done) {
+      request.get({url: config.api + "/books?name=apiTESTBoOk", json: true}, function (error, response, body) {
+        request.get({url: config.api + "/books/" + body[0]._id, json: true}, function (error, response, book) {
+          expect(response.statusCode).toBe(200);
+          expect(book.name).toBe('apiTESTBoOk');
+          done();
+        });
+      })
+    });
+    it("should return 404 when given an invalid book id", function (done) {
+      request.get({url: config.api + "/books/uf9sajfsafuasd9fusau9f9sdf9dsauf" , json: true}, function (error, response, body) {
+        expect(response.statusCode).toBe(404);
+        expect(body.message).toBeDefined();
+        done();
+      });
+    });
+  });
 });

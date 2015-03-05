@@ -106,6 +106,10 @@
           in: query
           description: 希望查询书籍的名称
           type: string
+        - name: sn
+          in: query
+          description: 希望查询书籍的序列号
+          type: string
         responses:
           200:
             description: 找到图书了
@@ -190,7 +194,3 @@
         summary:
           type: string
           descrition: 书籍简介
-        userId:
-          type: string
-          description: 该书籍所有者
-        

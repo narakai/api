@@ -29,9 +29,20 @@ module.exports = function (router, Logger) {
           if (error) {
             res.status(405).json({message: "invalid query"});
           } else {
-            books.length == 0 ? res.status(404).send({message:"no book found"}) : res.status(200).send(books);
+            books.length == 0 ? res.status(404).send({message: "no book found"}) : res.status(200).send(books);
           }
         });
       }
+    });
+
+  router.route("/books/:_id")
+    .get(function (req, res) {
+      Book.findById(req.params._id, function (error, book, count) {
+        if (error || count == 0) {
+          res.status(404).json({message: "book not found"});
+        } else {
+          res.status(200).json(book);
+        }
+      });
     });
 };
