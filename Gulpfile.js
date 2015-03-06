@@ -43,6 +43,10 @@ gulp.task('migrate:up', function () {
   return migrator.up();
 });
 
+gulp.task('migrate:down', function () {
+  return migrator.down();
+});
+
 gulp.task('test',['test:run'], function () {
   return migrator.down();
 });
