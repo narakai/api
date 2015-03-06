@@ -14,6 +14,10 @@ module.exports.up = function () {
   databaseConnection(function (db) {
     var book = db.collection('books');
     book.insert({name:"apiTESTBoOk", sn:"isbn-123-234-24",summary:"test summary"}, function (error, result) {});
+    //wanted_list_data
+    var wanted_list = db.collection('wanted_list');
+    var somebook = book.find();
+    wanted_list.insert(somebook, function (error, result) {});
     db.close();
   });
 };
@@ -22,6 +26,9 @@ module.exports.down = function () {
   databaseConnection(function (db) {
     var book = db.collection('books');
     book.remove({}, function (error, result) {});
+    //
+    var wanted_list = db.collection('wanted_list');
+    wanted_list.remove({}, function (error, result) {});
     db.close();
   });
 };
