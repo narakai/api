@@ -63,3 +63,6 @@ gulp test
 ```
 curl http://127.0.0.1:9527/healthcheck
 ```
+## 测试数据的添加
+在migrator.js内， 分为up和down， 执行gulp migrate:up会执行up，执行gulp migrate:down会执行down
+如果你的测试需要数据依赖，请再这里面加上
