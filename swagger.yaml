@@ -41,7 +41,7 @@
               items:
                 $ref: '#/definitions/WantedList'
           404:
-            description: 执行失败，未找到所查询的愿望单
+            description: 执行失败，为找到所查询的愿望单
             schema:
               $ref: '#/definitions/Error'
     /wantedLists/{wantedListId}:
@@ -69,6 +69,7 @@
         tags:
           - book
           - post
+          - done
         summary: 新建图书
         produces:
           - application/json
@@ -98,6 +99,7 @@
         tags:
           - book
           - get
+          - done
         summary: 根据条件查询图书
         produces:
           - application/json
@@ -126,6 +128,7 @@
         tags:
           - book
           - get
+          - done
         summary: 获取指定的书籍
         produces:
           - application/json
