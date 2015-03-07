@@ -8,6 +8,7 @@ var jasmine = require('gulp-jasmine');
 var reporters = require('jasmine-reporters');
 var src = __dirname + "/src";
 var migrator = require('./migrator');
+var yaml = require('gulp-yaml');
 
 gulp.task('install', shell.task([
   'npm install'
@@ -49,4 +50,10 @@ gulp.task('migrate:down', function () {
 
 gulp.task('test',['test:run'], function () {
   return migrator.down();
+});
+
+gulp.task('api:publish', function () {
+  return gulp.src("./swagger.yaml")
+    .pipe(yaml({safe: true}))
+    .pipe(gulp.dest('./'));
 });
