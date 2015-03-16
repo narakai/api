@@ -19,46 +19,26 @@
         responses:
           200:
             description: 服务器正常
-    /wantedLists:
-      get:
+    /user:
+      post:
         tags:
-          - wanted list
-          - get
-        summary: 查询用户的愿望单， 带有userId参数，如果用户登录后，不带userId参数，加上token可以查询本用户的愿望单
+          - user
+          - post
+        summary: 用户注册
         parameters:
-          - name: userId
-            in: query
-            description: 被查询愿望单的用户id
-            type: string
+          - in: body
+            name: body
+            description: 注册用户的信息
+            required: true
+            schema:
+              $schema: '#/definitions/CreateUserRequest'
         responses:
-          200:
-            description: 执行成功，返回所查询的愿望单
-            schema:
-              type: array
-              items:
-                $ref: '#/definitions/WantedList'
-          404:
-            description: 执行失败，为找到所查询的愿望单
-            schema:
-              $ref: '#/definitions/Error'
-    /wantedLists/{wantedListId}:
-      get:
-        tags:
-          - wanted list
-          - get
-        summary: 根据wanted list id指定查询愿望单
-        parameters:
-          - name: wantedListId
-            in: path
-            description: 愿望单id
-            type: string
-        responses:
-          200:
-            description: 找到愿望单
-            schema:
-              $ref: '#/definitions/WantedList'
-          404:
-            description: 未找到愿望单
+          201:
+            description: 注册成功
+            schema: 
+              $ref: '#/definitions/User'
+          409:
+            description: 用户名重复
             schema:
               $ref: '#/definitions/Error'
     /books:
@@ -146,6 +126,27 @@
   definitions:
     User:
       properties:
+        name:
+          type: string
+          description: 用户昵称
+        from: 
+          type: string
+          description: 来源
+        uuid:
+          type: string
+          description: 来源uuid
+        access_token:
+          type: string
+          description: token
+        qq:
+          type: string
+          description: qq
+        wantedList:
+          type: array
+          items: 
+            $ref: '#/definitions/Book'
+    CreateUserRequest:
+      properties:
         name: 
           type: string
           description: 用户昵称，全局唯一
@@ -158,6 +159,9 @@
         access_token:
           type: string
           description: 用户鉴权成功后的token
+        qq:
+          type: string
+          description: 用户QQ
     createBookRequest:
       properties:
         name:
