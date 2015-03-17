@@ -66,3 +66,6 @@ curl http://127.0.0.1:9527/healthcheck
 ## 测试数据的添加
 在migrator.js内， 分为up和down， 执行gulp migrate:up会执行up，执行gulp migrate:down会执行down
 如果你的测试需要数据依赖，请再这里面加上
+
+# 编写代码的风格
+请使用充血模式编写model，没有service层，所以任何model的行为、动作， 都需要编写modelSchema的扩展而非在api层实现

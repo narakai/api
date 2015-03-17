@@ -31,7 +31,7 @@
             description: 注册用户的信息
             required: true
             schema:
-              $schema: '#/definitions/CreateUserRequest'
+              $ref: '#/definitions/CreateUserRequest'
         responses:
           201:
             description: 注册成功
@@ -41,6 +41,12 @@
             description: 用户名重复
             schema:
               $ref: '#/definitions/Error'
+          400:
+            description: 请求错误
+            schema: 
+              type: array
+              items:
+                $ref: '#/definitions/BadRequest'
     /books:
       post:
         tags:
@@ -159,9 +165,6 @@
         access_token:
           type: string
           description: 用户鉴权成功后的token
-        qq:
-          type: string
-          description: 用户QQ
     createBookRequest:
       properties:
         name:

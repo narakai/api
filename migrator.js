@@ -2,9 +2,9 @@ var databaseConnection = function (cb) {
   var mongoClient = require('mongodb').MongoClient;
   var url = 'mongodb://localhost:27017/yobook';
   mongoClient.connect(url, function (error, db) {
-    if(error){
+    if (error) {
       console.log(error);
-    }else{
+    } else {
       cb(db);
     }
   });
@@ -13,7 +13,23 @@ var databaseConnection = function (cb) {
 module.exports.up = function () {
   databaseConnection(function (db) {
     var book = db.collection('books');
-    book.insert({name:"apiTESTBoOk", sn:"isbn-123-234-24",summary:"test summary"}, function (error, result) {});
+    var user = db.collection('users');
+
+    book.insert({
+      name: "apiTESTBoOk",
+      sn: "isbn-123-234-24",
+      summary: "test summary"
+    }, function (error, result) {
+    });
+
+    user.insert({
+      name: "testuser",
+      from: "qq",
+      uuid: "12345",
+      access_token: "asdf1234",
+      qq: 12345
+    }, function (error, result) {
+    });
     db.close();
   });
 };
@@ -21,7 +37,11 @@ module.exports.up = function () {
 module.exports.down = function () {
   databaseConnection(function (db) {
     var book = db.collection('books');
-    book.remove({}, function (error, result) {});
+    book.remove({}, function (error, result) {
+    });
+    var user = db.collection('users');
+    user.remove({}, function (error, result) {
+    });
     db.close();
   });
 };

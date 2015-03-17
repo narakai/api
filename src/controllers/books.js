@@ -13,7 +13,8 @@ module.exports = function (router, Logger) {
         book.summary = req.body.summary;
         book.save(function (error, book, count) {
           if (error) {
-            res.status(500).json({msg: "internal error"});
+            res.status(500).json({message: "internal error"});
+            Logger.error(error);
           } else {
             res.status(201).send(book);
             Logger.info("create " + count + " book name:" + book.name);
