@@ -22,12 +22,15 @@ var UserSchema = new Schema({
   qq: {
     type: String
   },
-  wantedList: []
+  wantedList: [],
+  location: {
+    type: [Number], // [longitude, latitude]
+    index: '2d'
+  }
 });
 
 UserSchema.static('findByName', function (name, callback) {
   return this.find({name: name}, callback);
 });
-
 
 module.exports = mongoose.model('User', UserSchema);

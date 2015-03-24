@@ -19,7 +19,7 @@
         responses:
           200:
             description: 服务器正常
-    /user:
+    /users:
       post:
         tags:
           - user
@@ -47,6 +47,46 @@
               type: array
               items:
                 $ref: '#/definitions/BadRequest'
+    /users/geosearch:
+      get:
+        tags:
+          - user
+          - get
+          - geo
+        summary: 按照地理位置查找用户
+        produces:
+          - application/json
+        parameters:
+          - in: query
+            name: longitude
+            description: 经度
+            required: true
+            type: number
+          - in: query
+            name: latitude
+            description: 纬度
+            required: true
+            type: number
+          - in: query
+            name: radius
+            description: 半径
+            required: true
+            type: number
+        responses:
+          200:
+            description: 找到半径内的用户
+            schema: 
+              type: array
+              items:
+                $ref: '#/definitions/User'
+          400:
+            description: 参数错误
+            schema:
+              $ref: '#/definitions/BadRequest'
+          404:
+            description: 一个都没找到
+            schema:
+              $ref: '#/definitions/Error'
     /books:
       post:
         tags:
@@ -57,8 +97,8 @@
         produces:
           - application/json
         parameters:
-          - in: body
-            name: body
+          - name: body
+            in: body
             description: Created user object
             required: true
             schema:
@@ -151,6 +191,10 @@
           type: array
           items: 
             $ref: '#/definitions/Book'
+        longitude:
+          type: integer
+        latitude:
+          type: integer
     CreateUserRequest:
       properties:
         name: 

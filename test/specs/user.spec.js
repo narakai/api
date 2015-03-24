@@ -46,4 +46,35 @@ describe("[User API] ", function () {
 
     });
   });
+
+  describe("find user by geo ", function () {
+    it("should return 400 when query is missing", function (done) {
+      request.get(config.api + "/users/geosearch", {json: true}, function (error, response, body) {
+        expect(response.statusCode).toBe(400);
+        expect(body.length).toBe(6);
+        done();
+      });
+    });
+    it("should return 400 when given an invalid query", function (done) {
+      request.get(config.api + "/users/geosearch?longitude=3d&latitude=fdsewfewu8f9uewf&radius=fdjsiafos888ufsd", {json: true}, function (error, response, body) {
+        expect(response.statusCode).toBe(400);
+        expect(body.length).toBe(3);
+        done();
+      });
+    });
+    it("should return 404 when no user found", function (done) {
+      request.get(config.api + "/users/geosearch?longitude=1&latitude=1&radius=0.1",{json: true}, function (error, response, body) {
+        expect(response.statusCode).toBe(404);
+        expect(body.message).toBe("user not found");
+        done();
+      });
+    });
+    it("should return found user when given the right coordinates and radius", function (done) {
+      request.get(config.api + "/users/geosearch?longitude=30&latitude=103&radius=2",{json: true}, function (error, response, body) {
+        expect(response.statusCode).toBe(200);
+        expect(body.length).toBe(2);
+        done();
+      });
+    });
+  });
 });

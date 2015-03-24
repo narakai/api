@@ -27,6 +27,16 @@ module.exports.up = function () {
       from: "qq",
       uuid: "12345",
       access_token: "asdf1234",
+      location: [30, 103],
+      qq: 12345
+    }, function (error, result) {
+    });
+    user.insert({
+      name: "testuser_1",
+      from: "qq",
+      uuid: "12345",
+      access_token: "asdf1234",
+      location: [31, 104],
       qq: 12345
     }, function (error, result) {
     });
