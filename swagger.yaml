@@ -195,7 +195,7 @@
           description: <longitude, latitude>
           type: array
           items:
-            type: integer
+            type: number
     CreateUserRequest:
       properties:
         name: 
@@ -210,6 +210,11 @@
         access_token:
           type: string
           description: 用户鉴权成功后的token
+        location:
+          type: array
+          description: 用户的位置信息
+          items: 
+            type: number
     createBookRequest:
       properties:
         name:

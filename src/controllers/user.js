@@ -19,6 +19,7 @@ module.exports = function (router, Logger) {
             user.name = req.body.name;
             user.from = req.body.from;
             user.uuid = req.body.uuid;
+            user.location = req.body.location;
             user.access_token = req.body.access_token;
             user.save(function (error, user, count) {
               if (error) {
