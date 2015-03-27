@@ -34,7 +34,7 @@ module.exports = function (router) {
                 newUser.open_id = req.body.open_id;
                 newUser.location = req.body.location;
                 newUser.access_token = req.body.access_token;
-                objectSave(newUser, res);
+                newUser.save(safe(res));
               }
             });
           }
