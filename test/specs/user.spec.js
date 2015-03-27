@@ -3,23 +3,8 @@ var config = require("../config/config");
 
 describe("[User API] ", function () {
   describe("user register ", function () {
-    it("should return 409 when given a username which already contained in db", function (done) {
-      var postData = {
-        name: "testuser",
-        from: "qq",
-        open_id: "12345",
-        access_token: "asdf1234"
-      };
-      request.post(config.user, {json: postData}, function (error, response, body) {
-        expect(response.statusCode).toBe(409);
-        expect(body.message).toBeDefined();
-        done();
-      });
-    });
-
     it("should return 400 when not given enough parameters", function (done) {
       var postData = {
-        from: "qq"
       };
       request.post(config.user, {json: postData}, function (error, response, body) {
         expect(response.statusCode).toBe(400);
@@ -30,20 +15,21 @@ describe("[User API] ", function () {
       });
     });
 
-    it("should return 201 and created user when given right request", function (done) {
-      var postData = {
-        name: "rightUser",
-        from: "qq",
-        open_id: "12345ss",
-        access_token: "asdf1234"
-      };
-
-      request.post(config.user, {json: postData}, function (error, response, body) {
+    it("should return 201 and null name and created user when given right request", function (done) {
+      request.post(config.user, {json: config.notExistingOAuthObject}, function (error, response, body) {
         expect(response.statusCode).toBe(201);
         expect(body._id).toBeDefined();
+        expect(body.name).toBeNull();
         done();
       });
-
+    });
+    it("should return 201 and specific name and created user when given right request", function (done) {
+      request.post(config.user, {json: config.existingOAuthObject}, function (error, response, body) {
+        expect(response.statusCode).toBe(201);
+        expect(body._id).toBeDefined();
+        expect(body.name).toBe("命运菊");
+        done();
+      });
     });
   });
 

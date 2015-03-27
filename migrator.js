@@ -40,6 +40,15 @@ module.exports.up = function () {
       qq: 12345
     }, function (error, result) {
     });
+    user.insert({
+      name: "命运菊",
+      from: "qq",
+      open_id: "F060E94D032970382DA473C167BBD93F",
+      access_token: "fjldakfalsdf",
+      location: [1, 2],
+      qq: 12345
+    }, function (error, result) {
+    });
     db.close();
   });
 };

@@ -5,7 +5,7 @@ var UserSchema = new Schema({
   name: {
     type: String,
     unique: true,
-    required: true
+    default: null
   },
   from: {
     type: String,
@@ -31,6 +31,10 @@ var UserSchema = new Schema({
 
 UserSchema.static('findByName', function (name, callback) {
   return this.find({name: name}, callback);
+});
+
+UserSchema.static('findByPlatform', function (from, open_id, callback) {
+  return this.findOne({from: from, open_id: open_id}, callback);
 });
 
 module.exports = mongoose.model('User', UserSchema);

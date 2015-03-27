@@ -2,32 +2,52 @@ module.exports = function (router, Logger) {
   var User = require("../models/user");
   var badRequestFilter = require('../badRequestFilter');
   var queryResultSender = require('../queryResultSender');
+  var request = require('request');
+  var validationUrl = "https://graph.qq.com/user/get_user_info",
+    oauth_consumer_key = "1104321992";
 
   router.route("/users")
     .post(function (req, res) {
-      req.checkBody('name', "required").notEmpty();
       req.checkBody('from', "required").notEmpty();
       req.checkBody('open_id', "required").notEmpty();
       req.checkBody('access_token', "required").notEmpty();
       badRequestFilter(req, res, function () {
-        User.findByName(req.body.name, function (error, users) {
-          if (users.length > 0) {
-            res.status(409).json({message: "duplicate name"});
+        var requestUrl = ["openid=" + req.body.open_id,
+          "access_token=" + req.body.access_token,
+          "oauth_consumer_key=" + oauth_consumer_key].join("&");
+
+        request.get(validationUrl + "?" + requestUrl, {json: true}, function (error, response, body) {
+          if (body.ret != 0) {
+            res.status(403).json({message: "unauthorized user"});
           } else {
-            var user = new User;
-            user.name = req.body.name;
-            user.from = req.body.from;
-            user.open_id = req.body.open_id;
-            user.location = req.body.location;
-            user.access_token = req.body.access_token;
-            user.save(function (error, user) {
-              if (error) {
-                res.status(500).json({message: "internal error"});
-                Logger.error(error);
+            User.findByPlatform(req.body.from, req.body.open_id, function (error, user) {
+              if (user) {
+                user.access_token = req.body.access_token;
+                user.save(function (error, user) {
+                  if (error) {
+                    res.status(500).json({message: "internal error"});
+                    Logger.error(error);
+                  } else {
+                    res.status(201).send(user);
+                  }
+                });
               } else {
-                res.status(201).send(user);
+                var newUser = new User();
+                newUser.name = req.body.name;
+                newUser.from = req.body.from;
+                newUser.open_id = req.body.open_id;
+                newUser.location = req.body.location;
+                newUser.access_token = req.body.access_token;
+                newUser.save(function (error, user) {
+                  if (error) {
+                    res.status(500).json({message: "internal error"});
+                    Logger.error(error);
+                  } else {
+                    res.status(201).send(user);
+                  }
+                });
               }
-            })
+            });
           }
         });
       });
