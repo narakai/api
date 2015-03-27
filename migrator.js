@@ -25,7 +25,7 @@ module.exports.up = function () {
     user.insert({
       name: "testuser",
       from: "qq",
-      uuid: "12345",
+      open_id: "12345",
       access_token: "asdf1234",
       location: [30, 103],
       qq: 12345
@@ -34,7 +34,7 @@ module.exports.up = function () {
     user.insert({
       name: "testuser_1",
       from: "qq",
-      uuid: "12345",
+      open_id: "12345",
       access_token: "asdf1234",
       location: [31, 104],
       qq: 12345

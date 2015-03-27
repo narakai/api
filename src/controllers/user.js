@@ -2,13 +2,12 @@ module.exports = function (router, Logger) {
   var User = require("../models/user");
   var badRequestFilter = require('../badRequestFilter');
   var queryResultSender = require('../queryResultSender');
-  var _ = require("lodash-node");
 
   router.route("/users")
     .post(function (req, res) {
       req.checkBody('name', "required").notEmpty();
       req.checkBody('from', "required").notEmpty();
-      req.checkBody('uuid', "required").notEmpty();
+      req.checkBody('open_id', "required").notEmpty();
       req.checkBody('access_token', "required").notEmpty();
       badRequestFilter(req, res, function () {
         User.findByName(req.body.name, function (error, users) {
@@ -18,10 +17,10 @@ module.exports = function (router, Logger) {
             var user = new User;
             user.name = req.body.name;
             user.from = req.body.from;
-            user.uuid = req.body.uuid;
+            user.open_id = req.body.open_id;
             user.location = req.body.location;
             user.access_token = req.body.access_token;
-            user.save(function (error, user, count) {
+            user.save(function (error, user) {
               if (error) {
                 res.status(500).json({message: "internal error"});
                 Logger.error(error);
@@ -53,7 +52,7 @@ module.exports = function (router, Logger) {
             $near: [longitude, latitude],
             $maxDistance: radius
           }
-        }).exec(function (error, users, count) {
+        }).exec(function (error, users) {
           queryResultSender(res, error, users, 'user');
         });
       });

@@ -7,7 +7,7 @@ describe("[User API] ", function () {
       var postData = {
         name: "testuser",
         from: "qq",
-        uuid: "12345",
+        open_id: "12345",
         access_token: "asdf1234"
       };
       request.post(config.user, {json: postData}, function (error, response, body) {
@@ -34,7 +34,7 @@ describe("[User API] ", function () {
       var postData = {
         name: "rightUser",
         from: "qq",
-        uuid: "12345ss",
+        open_id: "12345ss",
         access_token: "asdf1234"
       };
 

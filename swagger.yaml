@@ -24,7 +24,7 @@
         tags:
           - user
           - post
-        summary: 用户注册
+        summary: 用户注册或者再次登陆
         parameters:
           - in: body
             name: body
@@ -47,6 +47,10 @@
               type: array
               items:
                 $ref: '#/definitions/BadRequest'
+          403:
+            description: 提供的access_token和open_id在from下无法成功通过验证
+            schema:
+              $ref: '#/definitions/Error'
     /users/geosearch:
       get:
         tags:
@@ -178,7 +182,7 @@
         from: 
           type: string
           description: 来源
-        uuid:
+        open_id:
           type: string
           description: 来源uuid
         access_token:
@@ -204,7 +208,7 @@
         from: 
           type: string
           description: 用户的来源。因为是Oauth，有可能会集成更多的接口，需要指明来源
-        uuid:
+        open_id:
           type: string
           description: 用户在平台上的唯一ID，如QQ的open id，通过这个uuid来定位是否用户在本平台有注册
         access_token:

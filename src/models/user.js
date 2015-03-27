@@ -11,7 +11,7 @@ var UserSchema = new Schema({
     type: String,
     required: true
   },
-  uuid: {
+  open_id: {
     type: String,
     required: true
   },
