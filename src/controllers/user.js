@@ -8,7 +8,7 @@ module.exports = function (router) {
   var validationUrl = "https://graph.qq.com/user/get_user_info",
     oauth_consumer_key = "1104321992";
 
-  var objectSave = require("../objectSave");
+  var safe = require("../safe");
 
   router.route("/users")
     .post(function (req, res) {
@@ -27,7 +27,7 @@ module.exports = function (router) {
             User.findByPlatform(req.body.from, req.body.open_id, function (error, user) {
               if (user) {
                 user.access_token = req.body.access_token;
-                objectSave(user, res);
+                user.save(safe(res));
               } else {
                 var newUser = new User();
                 newUser.from = req.body.from;

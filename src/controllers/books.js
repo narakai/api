@@ -1,5 +1,5 @@
 var Logger = require("winston");
-var objectSave = require('../objectSave');
+var safe = require('../safe');
 module.exports = function (router) {
   var Book = require("../models/book");
   var badRequestFilter = require('../badRequestFilter');
@@ -13,7 +13,7 @@ module.exports = function (router) {
         book.name = req.body.name;
         book.sn = req.body.sn;
         book.summary = req.body.summary;
-        objectSave(book, res);
+        book.save(safe(res))
       });
     })
     .get(function (req, res) {
