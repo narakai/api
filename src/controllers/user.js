@@ -33,7 +33,6 @@ module.exports = function (router, Logger) {
                 });
               } else {
                 var newUser = new User();
-                newUser.name = req.body.name;
                 newUser.from = req.body.from;
                 newUser.open_id = req.body.open_id;
                 newUser.location = req.body.location;
