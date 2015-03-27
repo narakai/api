@@ -8,7 +8,7 @@ module.exports = function (router) {
   var validationUrl = "https://graph.qq.com/user/get_user_info",
     oauth_consumer_key = "1104321992";
 
-  var Safe = require("../Safe");
+  var resOnSave = require("../resOnSave");
 
   router.route("/users")
     .post(function (req, res) {
@@ -27,14 +27,14 @@ module.exports = function (router) {
             User.findByPlatform(req.body.from, req.body.open_id, function (error, user) {
               if (user) {
                 user.access_token = req.body.access_token;
-                user.save(safe(res));
+                user.save(resOnSave(res));
               } else {
                 var newUser = new User();
                 newUser.from = req.body.from;
                 newUser.open_id = req.body.open_id;
                 newUser.location = req.body.location;
                 newUser.access_token = req.body.access_token;
-                newUser.save(safe(res));
+                newUser.save(resOnSave(res));
               }
             });
           }
