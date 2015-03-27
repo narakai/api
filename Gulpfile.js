@@ -32,10 +32,10 @@ gulp.task('dev', ['install'], function () {
     });
 });
 
-gulp.task('test:run',['migrate:up'], function () {
+gulp.task('test:run',['migrate:down', 'migrate:up'], function () {
   return gulp.src(__dirname + "/test/specs/**.spec.js")
     .pipe(jasmine({
-      reporter: new reporters.TerminalReporter()
+      reporter: new reporters.TapReporter()
     }));
 });
 
