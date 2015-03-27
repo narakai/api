@@ -1,5 +1,5 @@
 var Logger = require("winston");
-var safe = require('../safe');
+var Safe = require('../Safe');
 module.exports = function (router) {
   var Book = require("../models/book");
   var badRequestFilter = require('../badRequestFilter');

@@ -8,7 +8,7 @@ module.exports = function (router) {
   var validationUrl = "https://graph.qq.com/user/get_user_info",
     oauth_consumer_key = "1104321992";
 
-  var safe = require("../safe");
+  var Safe = require("../Safe");
 
   router.route("/users")
     .post(function (req, res) {
