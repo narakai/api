@@ -1,10 +1,14 @@
-module.exports = function (router, Logger) {
+var Logger = require("winston");
+
+module.exports = function (router) {
   var User = require("../models/user");
   var badRequestFilter = require('../badRequestFilter');
   var queryResultSender = require('../queryResultSender');
   var request = require('request');
   var validationUrl = "https://graph.qq.com/user/get_user_info",
     oauth_consumer_key = "1104321992";
+
+  var objectSave = require("../objectSave");
 
   router.route("/users")
     .post(function (req, res) {
@@ -23,28 +27,14 @@ module.exports = function (router, Logger) {
             User.findByPlatform(req.body.from, req.body.open_id, function (error, user) {
               if (user) {
                 user.access_token = req.body.access_token;
-                user.save(function (error, user) {
-                  if (error) {
-                    res.status(500).json({message: "internal error"});
-                    Logger.error(error);
-                  } else {
-                    res.status(201).send(user);
-                  }
-                });
+                objectSave(user, res);
               } else {
                 var newUser = new User();
                 newUser.from = req.body.from;
                 newUser.open_id = req.body.open_id;
                 newUser.location = req.body.location;
                 newUser.access_token = req.body.access_token;
-                newUser.save(function (error, user) {
-                  if (error) {
-                    res.status(500).json({message: "internal error"});
-                    Logger.error(error);
-                  } else {
-                    res.status(201).send(user);
-                  }
-                });
+                objectSave(newUser, res);
               }
             });
           }

@@ -1,4 +1,6 @@
-module.exports = function (router, Logger) {
+var Logger = require("winston");
+var objectSave = require('../objectSave');
+module.exports = function (router) {
   var Book = require("../models/book");
   var badRequestFilter = require('../badRequestFilter');
   var _ = require("lodash-node");
@@ -11,15 +13,7 @@ module.exports = function (router, Logger) {
         book.name = req.body.name;
         book.sn = req.body.sn;
         book.summary = req.body.summary;
-        book.save(function (error, book, count) {
-          if (error) {
-            res.status(500).json({message: "internal error"});
-            Logger.error(error);
-          } else {
-            res.status(201).send(book);
-            Logger.info("create " + count + " book name:" + book.name);
-          }
-        });
+        objectSave(book, res);
       });
     })
     .get(function (req, res) {

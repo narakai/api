@@ -36,7 +36,7 @@ var Router = require('express').Router();
 
 // reg routes
 _.forEach(routes.getRoutes(), function (routeFile) {
-  require(routeFile)(Router, Logger);
+  require(routeFile)(Router);
 });
 app.use(Router);
 
