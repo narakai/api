@@ -15,6 +15,7 @@
         tags:
           - system
           - get
+          - done
         summary: 获取服务器时间
         responses:
           200:
@@ -24,6 +25,7 @@
         tags:
           - user
           - post
+          - done
         summary: 用户注册或者再次登陆
         parameters:
           - in: body
@@ -45,6 +47,37 @@
                 $ref: '#/definitions/BadRequest'
           403:
             description: 提供的access_token和open_id在from下无法成功通过验证
+            schema:
+              $ref: '#/definitions/Error'
+    /users/regist:
+      put:
+        tags:
+          - user
+          - put
+        summary: 绑定注册用户
+        produces:
+          - application/json
+        parameters:
+          - in: body
+            name: body
+            required: true
+            schema:
+              $ref: '#/definitions/BindUserNameRequest'
+          - in: header
+            name: user_id
+            required: true
+            type: string
+          - in: header
+            name: access_token
+            required: true
+            type: string
+        responses:
+          201:
+            description: 绑定成功
+            schema:
+              $ref: '#/definitions/User'
+          409:
+            description: 绑定失败，用户名重复
             schema:
               $ref: '#/definitions/Error'
     /users/geosearch:
@@ -170,6 +203,11 @@
             schema: 
               $ref: '#/definitions/Error'
   definitions:
+    BindUserNameRequest:
+      properties:
+        name:
+          type: string
+          description: 用户昵称
     User:
       properties:
         name:
