@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var jshint = require('gulp-jshint');
 var install = require("gulp-install");
 var nodemon = require("gulp-nodemon");
 var util = require("gulp-util");
@@ -32,13 +33,18 @@ gulp.task('dev', ['install'], function () {
     });
 });
 
-gulp.task('test:run',['migrate:up'], function () {
+gulp.task('lint', function () {
+    return gulp.src(['src/*.js', 'src/controllers/*.js', 'src/models/*.js'])
+        .pipe(jshint('.jshintrc'))
+        .pipe(jshint.reporter('default'))
+});
+
+gulp.task('test:run',['lint', 'migrate:up'], function () {
   return gulp.src(__dirname + "/test/specs/**.spec.js")
     .pipe(jasmine({
       reporter: new reporters.TapReporter()
     }));
 });
-
 
 gulp.task('migrate:up', function () {
   return migrator.up();

@@ -1,4 +1,3 @@
-var Logger = require("winston");
 var resOnSave = require('../resOnSave');
 module.exports = function (router) {
   var Book = require("../models/book");
@@ -13,7 +12,7 @@ module.exports = function (router) {
         book.name = req.body.name;
         book.sn = req.body.sn;
         book.summary = req.body.summary;
-        book.save(resOnSave(res))
+        book.save(resOnSave(res));
       });
     })
     .get(function (req, res) {
@@ -23,8 +22,10 @@ module.exports = function (router) {
         Book.find(req.query, function (error, books) {
           if (error) {
             res.status(405).json({message: "invalid query"});
+          } else if(books.length === 0) {
+            res.status(404).send({message: "no book found"});
           } else {
-            books.length == 0 ? res.status(404).send({message: "no book found"}) : res.status(200).send(books);
+            res.status(200).send(books);
           }
         });
       }
@@ -33,7 +34,7 @@ module.exports = function (router) {
   router.route("/books/:_id")
     .get(function (req, res) {
       Book.findById(req.params._id, function (error, book, count) {
-        if (error || count == 0) {
+        if (error || count === 0) {
           res.status(404).json({message: "book not found"});
         } else {
           res.status(200).json(book);

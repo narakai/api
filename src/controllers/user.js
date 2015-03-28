@@ -1,5 +1,3 @@
-var Logger = require("winston");
-
 module.exports = function (router) {
   var User = require("../models/user");
   var badRequestFilter = require('../badRequestFilter');
@@ -21,7 +19,7 @@ module.exports = function (router) {
           "oauth_consumer_key=" + oauth_consumer_key].join("&");
 
         request.get(validationUrl + "?" + requestUrl, {json: true}, function (error, response, body) {
-          if (body.ret != 0) {
+          if (body.ret !== 0) {
             res.status(403).json({message: "unauthorized user"});
           } else {
             User.findByPlatform(req.body.from, req.body.open_id, function (error, user) {
