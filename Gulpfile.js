@@ -37,6 +37,7 @@ gulp.task('lint', function () {
     return gulp.src(['src/*.js', 'src/controllers/*.js', 'src/models/*.js'])
         .pipe(jshint('.jshintrc'))
         .pipe(jshint.reporter('default'))
+        .pipe(jshint.reporter('fail'))
 });
 
 gulp.task('test:run',['lint', 'migrate:up'], function () {
