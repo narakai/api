@@ -14,30 +14,38 @@ module.exports = function (router) {
       req.checkBody('open_id', "required").notEmpty();
       req.checkBody('access_token', "required").notEmpty();
       badRequestFilter(req, res, function () {
+        saveAuthorizedUser();
+      });
+
+      function saveAuthorizedUser() {
         var requestUrl = ["openid=" + req.body.open_id,
           "access_token=" + req.body.access_token,
           "oauth_consumer_key=" + oauth_consumer_key].join("&");
 
-        request.get(validationUrl + "?" + requestUrl, {json: true}, function (error, response, body) {
+        request.get(validationUrl + "?" + requestUrl, {json: true}, function (error_, response_, body) {
           if (body.ret !== 0) {
-            res.status(403).json({message: "unauthorized user"});
+            res.status(403).send({message: "unauthorized user"});
           } else {
-            User.findByPlatform(req.body.from, req.body.open_id, function (error, user) {
-              if (user) {
-                user.access_token = req.body.access_token;
-                user.save(resOnSave(res));
-              } else {
-                var newUser = new User();
-                newUser.from = req.body.from;
-                newUser.open_id = req.body.open_id;
-                newUser.location = req.body.location;
-                newUser.access_token = req.body.access_token;
-                newUser.save(resOnSave(res));
-              }
-            });
+            saveUser();
           }
         });
-      });
+      }
+
+      function saveUser() {
+        User.findByPlatform(req.body.from, req.body.open_id, function (error_, user) {
+          if (user) {
+            user.access_token = req.body.access_token;
+            user.save(resOnSave(res));
+          } else {
+            var newUser = new User();
+            newUser.from = req.body.from;
+            newUser.open_id = req.body.open_id;
+            newUser.location = req.body.location;
+            newUser.access_token = req.body.access_token;
+            newUser.save(resOnSave(res));
+          }
+        });
+      }
     });
 
   router.route("/users/geosearch")
