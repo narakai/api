@@ -21,7 +21,7 @@ module.exports = function (router) {
       } else {
         Book.find(req.query, function (error, books) {
           if (error) {
-            res.status(405).json({message: "invalid query"});
+            res.status(405).send({message: "invalid query"});
           } else if(books.length === 0) {
             res.status(404).send({message: "no book found"});
           } else {
@@ -35,9 +35,9 @@ module.exports = function (router) {
     .get(function (req, res) {
       Book.findById(req.params._id, function (error, book, count) {
         if (error || count === 0) {
-          res.status(404).json({message: "book not found"});
+          res.status(404).send({message: "book not found"});
         } else {
-          res.status(200).json(book);
+          res.status(200).send(book);
         }
       });
     });
