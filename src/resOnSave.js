@@ -6,7 +6,7 @@ module.exports = function (res) {
             Logger.error(error);
         }else{
             res.status(201).send(object);
-            Logger.debug("saved " + count + object);
+            Logger.debug("saved " + count + " "+ object);
         }
     };
 };

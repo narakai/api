@@ -60,7 +60,7 @@ describe('[Books API] ', function () {
     it("should return 404 when given a name not exists in db", function (done) {
       request.get({url: config.book + "?name=f9dasjfsd", json: true}, function (error, response, body) {
         expect(response.statusCode).toBe(404);
-        expect(body.message).toBe("no book found");
+        expect(body.message).toBe("not found");
         done();
       });
     });
@@ -77,7 +77,7 @@ describe('[Books API] ', function () {
       })
     });
     it("should return 404 when given an invalid book id", function (done) {
-      request.get({url: config.book + "/uf9sajfsafuasd9fusau9f9sdf9dsauf" , json: true}, function (error, response, body) {
+      request.get({url: config.book + "/551a5c6dd1d6d99fcd7205ss" , json: true}, function (error, response, body) {
         expect(response.statusCode).toBe(404);
         expect(body.message).toBeDefined();
         done();

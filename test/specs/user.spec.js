@@ -51,7 +51,7 @@ describe("[User API] ", function () {
     it("should return 404 when no user found", function (done) {
       request.get(config.searchUserByGeo + "?longitude=1&latitude=1&radius=0.1", {json: true}, function (error, response, body) {
         expect(response.statusCode).toBe(404);
-        expect(body.message).toBe("user not found");
+        expect(body.message).toBe("not found");
         done();
       });
     });

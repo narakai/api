@@ -3,6 +3,8 @@ module.exports = function (router) {
   var Book = require("../models/book");
   var badRequestFilter = require('../badRequestFilter');
   var _ = require("lodash-node");
+  var queryResultSender = require('../queryResultSender');
+
   router.route("/books")
     .post(function (req, res) {
       // check request
@@ -19,26 +21,12 @@ module.exports = function (router) {
       if (_.map(req.query).length <= 0) {
         res.status(405).json({message: "query must contain query string"});
       } else {
-        Book.find(req.query, function (error, books) {
-          if (error) {
-            res.status(405).send({message: "invalid query"});
-          } else if(books.length === 0) {
-            res.status(404).send({message: "no book found"});
-          } else {
-            res.status(200).send(books);
-          }
-        });
+        Book.find(req.query, queryResultSender.multiple(res));
       }
     });
 
   router.route("/books/:_id")
     .get(function (req, res) {
-      Book.findById(req.params._id, function (error, book, count) {
-        if (error || count === 0) {
-          res.status(404).send({message: "book not found"});
-        } else {
-          res.status(200).send(book);
-        }
-      });
+      Book.findById(req.params._id, queryResultSender.single(res));
     });
 };

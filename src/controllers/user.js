@@ -67,9 +67,7 @@ module.exports = function (router) {
             $near: [longitude, latitude],
             $maxDistance: radius
           }
-        }).exec(function (error, users) {
-          queryResultSender(res, error, users, 'user');
-        });
+        }).exec(queryResultSender.multiple(res));
       });
     });
 };
