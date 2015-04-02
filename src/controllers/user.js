@@ -70,4 +70,20 @@ module.exports = function (router) {
         }).exec(queryResultSender.multiple(res));
       });
     });
+
+  router.route("/wantedlist")
+    .put(function (req, res) {
+      req.checkQuery('username', 'required').notEmpty();
+      badRequestFilter(req, res, function () {
+        User.findOneAndUpdate({name: req.query.username}, { $set: {wantedList: req.body}},
+          {}, function (error, newOne) {
+            if (error || !newOne) {
+              res.status(403).send({message: 'invalid username'});
+            } else {
+              res.status(201).send({message: 'created wanted book list'});
+            }
+          });
+      });
+
+    });
 };

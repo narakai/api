@@ -7,6 +7,7 @@ module.exports = {
   user: api + "/users",
   searchUserByGeo: api + "/users/geosearch",
   healthCheck: api + "/healthcheck",
+  wantedList: api + "/wantedlist",
   existingOAuthObject: {
     from: "qq",
     open_id: "F060E94D032970382DA473C167BBD93F",

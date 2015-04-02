@@ -63,4 +63,25 @@ describe("[User API] ", function () {
       });
     });
   });
+
+  describe("wanted book list", function () {
+    it("should create wanted book list for an user", function(done) {
+      var wantedList = [{
+        name: "apiTESTBoOk",
+        sn: "isbn-123-234-24",
+        summary: "test summary"
+      }];
+      request.put(config.wantedList + "?username=testuser", {json: wantedList}, function(error, response, body) {
+        expect(response.statusCode).toBe(201);
+        done();
+      });
+    })
+
+    it("should not create wanted book list for a non-exists user", function(done) {
+      request.put(config.wantedList + "?username=xxxx", {json: []}, function(error, response, body) {
+        expect(response.statusCode).toBe(403);
+        done();
+      });
+    })
+  });
 });
