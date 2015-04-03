@@ -5,7 +5,7 @@ module.exports = function (router) {
   var request = require('request');
   var validationUrl = "https://graph.qq.com/user/get_user_info",
     oauth_consumer_key = "1104321992";
-
+  var Logger = require('winston');
   var resOnSave = require("../resOnSave");
 
   router.route("/users")
@@ -68,6 +68,38 @@ module.exports = function (router) {
             $maxDistance: radius
           }
         }).exec(queryResultSender.multiple(res));
+      });
+    });
+
+  router.route("/users/regist")
+    .put(function (req, res) {
+      req.checkHeader("open_id", "required").notEmpty();
+      req.checkHeader("from", "required").notEmpty();
+      req.checkHeader("access_token", "required").notEmpty();
+      badRequestFilter(req, res, function () {
+        User.findOne({name: req.body.name}, function (error, existingUser) {
+          if (!!existingUser) {
+            res.status(409).send({message: "conflict"});
+          } else {
+            User.findOne({
+              from: req.headers.from,
+              access_token: req.headers.access_token,
+              open_id: req.headers.open_id
+            }, function (error, user) {
+              if (!error) {
+                if (user) {
+                  user.name = req.body.name;
+                  user.save(resOnSave(res));
+                } else {
+                  res.status(404).send({message: "not found"});
+                }
+              } else {
+                Logger.error(error);
+                res.status(500).send({message: "nothing to say"});
+              }
+            });
+          }
+        });
       });
     });
 

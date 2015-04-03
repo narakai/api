@@ -4,7 +4,6 @@ var Schema = mongoose.Schema;
 var UserSchema = new Schema({
   name: {
     type: String,
-    unique: true,
     default: null
   },
   from: {
@@ -30,7 +29,7 @@ var UserSchema = new Schema({
 });
 
 UserSchema.static('findByName', function (name, callback) {
-  return this.find({name: name}, callback);
+  return this.findOne({name: name}, callback);
 });
 
 UserSchema.static('findByPlatform', function (from, open_id, callback) {

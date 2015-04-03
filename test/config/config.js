@@ -7,6 +7,7 @@ module.exports = {
   user: api + "/users",
   searchUserByGeo: api + "/users/geosearch",
   healthCheck: api + "/healthcheck",
+  userRegist: api + "/users/regist",
   wantedList: api + "/wantedlist",
   existingOAuthObject: {
     from: "qq",
@@ -17,5 +18,10 @@ module.exports = {
     from: "qq",
     open_id: "A664119462342DAF29F7062998056620",
     access_token: "D786CBC2A6C89244044F1ED03E89FB79"
+  },
+  notBindUserHeader: {
+    from: "qq",
+    open_id:"authed_id",
+    access_token : "authed_token"
   }
 };

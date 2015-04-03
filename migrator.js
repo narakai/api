@@ -49,6 +49,15 @@ module.exports.up = function () {
       qq: 12345
     }, function (error, result) {
     });
+    user.insert({
+      name: null,
+      from: "qq",
+      open_id: "authed_id",
+      access_token: "authed_token",
+      location: [1, 2],
+      qq: 12345
+    }, function (error, result) {
+    });
     db.close();
   });
 };

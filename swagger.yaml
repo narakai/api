@@ -76,6 +76,16 @@
             description: 绑定成功
             schema:
               $ref: '#/definitions/User'
+          400:
+            description: 参数丢失
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/BadRequest'
+          404:
+            description: 找不到需要绑定的用户
+            schema:
+              $ref: '#/definitions/Error'
           409:
             description: 绑定失败，用户名重复
             schema:
